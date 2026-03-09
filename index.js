@@ -43,3 +43,11 @@ app.post('/api/orders', (req, res) => {
     order: req.body
   });
 });
+app.put('/api/orders/:id', (req, res) => {
+  const orderId = req.params.id;
+
+  res.json({
+    message: `Order ${orderId} updated successfully`,
+    updatedOrder: req.body
+  });
+});
