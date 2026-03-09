@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Check') {
+        stage('Checkout') {
             steps {
-                echo 'Repository cloned successfully'
+                git branch: 'main', url: 'https://github.com/nuthchanrithea654-hub/Jenkins-midterm.git'
             }
         }
 
@@ -14,9 +14,28 @@ pipeline {
             }
         }
 
-        stage('Run Basic Check') {
+        stage('Syntax Check') {
             steps {
                 sh 'node -c index.js'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'sudo docker build -t foodexpress-api .'
+            }
+        }
+
+        stage('Stop Old Container') {
+            steps {
+                sh 'sudo docker stop foodexpress-container || true'
+                sh 'sudo docker rm foodexpress-container || true'
+            }
+        }
+
+        stage('Run New Container') {
+            steps {
+                sh 'sudo docker run -d --name foodexpress-container -p 3000:3000 foodexpress-api'
             }
         }
     }
