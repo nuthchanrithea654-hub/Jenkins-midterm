@@ -22,20 +22,20 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'sudo docker build -t foodexpress-api .'
+                sh 'docker build -t foodexpress-api .'
             }
         }
 
         stage('Stop Old Container') {
             steps {
-                sh 'sudo docker stop foodexpress-container || true'
-                sh 'sudo docker rm foodexpress-container || true'
+                sh 'docker stop foodexpress-container || true'
+                sh 'docker rm foodexpress-container || true'
             }
         }
 
         stage('Run New Container') {
             steps {
-                sh 'sudo docker run -d --name foodexpress-container -p 3000:3000 foodexpress-api'
+                sh 'docker run -d --name foodexpress-container -p 3000:3000 foodexpress-api'
             }
         }
     }
