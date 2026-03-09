@@ -37,3 +37,9 @@ app.get('/api/menu', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);
 });
+app.post('/api/orders', (req, res) => {
+  res.json({
+    message: 'New order created successfully',
+    order: req.body
+  });
+});
