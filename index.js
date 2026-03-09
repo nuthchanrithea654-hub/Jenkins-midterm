@@ -51,3 +51,10 @@ app.put('/api/orders/:id', (req, res) => {
     updatedOrder: req.body
   });
 });
+app.delete('/api/orders/:id', (req, res) => {
+  const orderId = req.params.id;
+
+  res.json({
+    message: `Order ${orderId} deleted successfully`
+  });
+});
